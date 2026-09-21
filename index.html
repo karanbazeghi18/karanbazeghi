@@ -47,6 +47,7 @@
             align-items: center;
             z-index: 9999;
             transition: opacity 1s ease, visibility 1s ease;
+            cursor: pointer;
         }
 
         .disco-wrapper {
@@ -449,7 +450,7 @@
             <div class="disco-cable"></div>
             <div class="disco-ball"></div>
         </div>
-        <div class="preloader-text">GETTING THE 80S VIBE READY...</div>
+        <div class="preloader-text">CLICK ANYWHERE TO ENTER 80S VIBE...</div>
     </div>
 
     <!-- Retro Background -->
@@ -610,13 +611,16 @@
                 </div>
 
                 <!-- Travel Card -->
-                <div class="card passion-card" style="text-align: center;">
-                    <div style="border: 2px solid var(--neon-yellow); border-radius: 10px; overflow: hidden; margin-bottom: 1rem; box-shadow: 0 0 12px var(--neon-yellow);">
-                        <img src="vintage-bike.jpg" alt="Karan Bike Travel" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                <div class="card passion-card passion-card-interactive">
+                    <div class="passion-card-bg" style="background-image: url('japan-city.jpg');"></div>
+                    <div class="passion-card-content" style="text-align: center;">
+                        <div style="border: 2px solid var(--neon-yellow); border-radius: 10px; overflow: hidden; margin-bottom: 1rem; box-shadow: 0 0 12px var(--neon-yellow);">
+                            <img src="vintage-bike.jpg" alt="Karan Bike Travel" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                        </div>
+                        <div class="passion-icon"><i class="fa-solid fa-plane-departure"></i></div>
+                        <h3>Wanderlust</h3>
+                        <p>Southeast Asia lover (Thailand & Bali). Bucket list: Japan, Berlin, London, NYC. Local favorites: <strong>Chabahar & Kurdistan</strong>.</p>
                     </div>
-                    <div class="passion-icon"><i class="fa-solid fa-plane-departure"></i></div>
-                    <h3>Wanderlust</h3>
-                    <p>Southeast Asia lover (Thailand & Bali). Bucket list: Japan, Berlin, London, NYC. Local favorites: <strong>Chabahar & Kurdistan</strong>.</p>
                 </div>
 
                 <!-- Books Card -->
@@ -640,13 +644,32 @@
             KARAN BAZEGHI &copy; 80S RETRO LANDING PAGE
         </p>
         <div class="social-links">
-            <a href="https://github.com/" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://github.com/karanbazeghi18" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
             <a href="https://www.linkedin.com/in/karanbazeghi/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script>
+        const audio = document.getElementById('bgAudio');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+
+        // Play audio on first user touch/click anywhere
+        function autoPlayAudio() {
+            audio.play().then(() => {
+                musicIcon.className = 'fa-solid fa-pause';
+                musicText.innerText = 'PAUSE';
+                document.getElementById('musicToggle').style.borderColor = 'var(--neon-blue)';
+                document.getElementById('musicToggle').style.boxShadow = '0 0 20px var(--neon-blue)';
+                window.removeEventListener('click', autoPlayAudio);
+                window.removeEventListener('touchstart', autoPlayAudio);
+            }).catch(e => console.log("Audio play blocked until click"));
+        }
+
+        window.addEventListener('click', autoPlayAudio);
+        window.addEventListener('touchstart', autoPlayAudio);
+
         // Preloader Logic
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
@@ -656,11 +679,7 @@
             }, 2500);
         });
 
-        // Audio Player Logic
-        const audio = document.getElementById('bgAudio');
-        const musicIcon = document.getElementById('musicIcon');
-        const musicText = document.getElementById('musicText');
-
+        // Toggle Audio Button
         function toggleAudio() {
             if (audio.paused) {
                 audio.play();
