@@ -434,11 +434,6 @@
             transform: scale(1.2);
         }
 
-        /* HIDE ORIGINAL METIS LAUNCH BUTTON BUT KEEP WIDGET FUNCTIONAL */
-        #metis-chat-widget-button, button[class*="metis"] {
-            display: none !important;
-        }
-
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .hero h2 { font-size: 0.8rem; }
@@ -643,9 +638,29 @@
 
     </div>
 
-    <!-- Retro Neon Button to Open Official Metis Chatbot -->
-    <button onclick="openMetisOfficial()" style="position: fixed; bottom: 20px; left: 20px; z-index: 99999; background: rgba(13, 2, 33, 0.95); border: 2px solid var(--neon-blue); color: #fff; padding: 12px 18px; border-radius: 50px; cursor: pointer; font-family: 'Press Start 2P', cursive; font-size: 0.65rem; box-shadow: 0 0 15px var(--neon-blue); display: flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-robot" style="color: var(--neon-pink); font-size: 0.95rem;"></i>
+    <!-- RETRO NEON CHATBOX UI -->
+    <div id="retroChatBox" style="position: fixed; bottom: 80px; left: 20px; z-index: 99999; display: none; width: 330px; height: 430px; background: rgba(13, 2, 33, 0.95); border: 2px solid var(--neon-pink); border-radius: 12px; box-shadow: 0 0 25px var(--neon-pink); flex-direction: column; overflow: hidden; backdrop-filter: blur(12px);">
+        <!-- Header -->
+        <div style="background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink)); padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--neon-blue);">
+            <span style="font-family: 'Press Start 2P', cursive; font-size: 0.65rem; color: #fff; text-shadow: 0 0 5px #fff;"><i class="fa-solid fa-robot"></i> KAREN AI</span>
+            <button onclick="toggleRetroChat()" style="background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer;">&times;</button>
+        </div>
+        <!-- Messages Body -->
+        <div id="retroChatMessages" style="flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
+            <div style="background: rgba(0, 243, 255, 0.15); border: 1px solid var(--neon-blue); padding: 8px 12px; border-radius: 8px; color: #fff; align-self: flex-start; max-width: 85%;">
+                سلام! من دستیار هوشمند کارن بازغی هستم. چه سوالی درباره سوابق، پروژه‌ها یا علایق کارن داری؟
+            </div>
+        </div>
+        <!-- Input Area -->
+        <div style="padding: 10px; border-top: 1px solid rgba(255, 0, 127, 0.3); display: flex; gap: 8px; background: rgba(5, 0, 16, 0.9);">
+            <input type="text" id="retroChatInput" placeholder="پیام شما..." style="flex: 1; background: #0d0221; border: 1px solid var(--neon-blue); border-radius: 6px; padding: 8px 10px; color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; outline: none;" onkeypress="if(event.key==='Enter') sendRetroMessage()">
+            <button onclick="sendRetroMessage()" style="background: var(--neon-pink); border: none; color: #fff; padding: 8px 12px; border-radius: 6px; cursor: pointer; box-shadow: 0 0 10px var(--neon-pink);"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Floating Neon Toggle Button -->
+    <button onclick="toggleRetroChat()" style="position: fixed; bottom: 20px; left: 20px; z-index: 99999; background: rgba(13, 2, 33, 0.95); border: 2px solid var(--neon-blue); color: #fff; padding: 10px 16px; border-radius: 50px; cursor: pointer; font-family: 'Press Start 2P', cursive; font-size: 0.6rem; box-shadow: 0 0 15px var(--neon-blue); display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-robot" style="color: var(--neon-pink); font-size: 0.9rem;"></i>
         <span>ASK KAREN AI</span>
     </button>
 
@@ -659,9 +674,6 @@
             <a href="https://www.linkedin.com/in/karanbazeghi/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
         </div>
     </footer>
-
-    <!-- OFFICIAL METIS SCRIPT -->
-    <script src="https://console.metisai.ir/chat-widget.js" data-bot-id="4e33b9ac-44c9-45cb-83bf-d3760cf91eed" async></script>
 
     <!-- Scripts -->
     <script>
@@ -702,16 +714,51 @@
             }, 2000);
         });
 
-        // Trigger Metis Official Widget via Retro Button
-        function openMetisOfficial() {
-            const defaultBtn = document.querySelector('iframe[src*="metisai"]') || document.querySelector('div[id*="metis"]');
-            if (defaultBtn) {
-                defaultBtn.click();
-            } else {
-                // If direct click fails, dispatch click event to Metis elements
-                const metisEl = document.getElementById('metis-chat-widget-button') || document.querySelector('[data-bot-id]');
-                if (metisEl) metisEl.click();
+        // --- Custom Synthwave Chatbot Logic with Proxy ---
+        const BOT_ID = "4e33b9ac-44c9-45cb-83bf-d3760cf91eed";
+
+        function toggleRetroChat() {
+            const chat = document.getElementById('retroChatBox');
+            chat.style.display = (chat.style.display === 'none' || chat.style.display === '') ? 'flex' : 'none';
+        }
+
+        async function sendRetroMessage() {
+            const input = document.getElementById('retroChatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const container = document.getElementById('retroChatMessages');
+
+            // User bubble
+            container.innerHTML += `<div style="background: rgba(255, 0, 127, 0.2); border: 1px solid var(--neon-pink); padding: 8px 12px; border-radius: 8px; color: #fff; align-self: flex-end; max-width: 85%;">${text}</div>`;
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            // Loading
+            const loadingId = 'msg-' + Date.now();
+            container.innerHTML += `<div id="${loadingId}" style="background: rgba(0, 243, 255, 0.15); border: 1px solid var(--neon-blue); padding: 8px 12px; border-radius: 8px; color: var(--neon-yellow); align-self: flex-start; max-width: 85%;">در حال فکر کردن...</div>`;
+            container.scrollTop = container.scrollHeight;
+
+            try {
+                // Using CorsProxy to bypass browser restriction
+                const targetUrl = `https://console.metisai.ir/api/v1/bots/${BOT_ID}/chat`;
+                const proxyUrl = `https://corsproxy.io/?` + encodeURIComponent(targetUrl);
+
+                const res = await fetch(proxyUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+
+                const data = await res.json();
+                const reply = data.reply || data.response || data.message || "متأسفانه پاسخی دریافت نشد.";
+                document.getElementById(loadingId).innerText = reply;
+                document.getElementById(loadingId).style.color = "#fff";
+            } catch (err) {
+                document.getElementById(loadingId).innerText = "خطا در اتصال به هوش مصنوعی متیس.";
+                document.getElementById(loadingId).style.color = "#ff4444";
             }
+            container.scrollTop = container.scrollHeight;
         }
     </script>
 </body>
