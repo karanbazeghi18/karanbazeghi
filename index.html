@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karan Bazeghi | Beyond A Person</title>
+    <title>Karen Bazeghi | Beyond A Person</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
@@ -47,7 +47,6 @@
             align-items: center;
             z-index: 9999;
             transition: opacity 1s ease, visibility 1s ease;
-            cursor: pointer;
         }
 
         .disco-wrapper {
@@ -450,7 +449,7 @@
             <div class="disco-cable"></div>
             <div class="disco-ball"></div>
         </div>
-        <div class="preloader-text">CLICK ANYWHERE TO ENTER 80S VIBE...</div>
+        <div class="preloader-text">GETTING THE 80S VIBE READY...</div>
     </div>
 
     <!-- Retro Background -->
@@ -461,7 +460,7 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="#" class="logo">KARAN.80S</a>
+        <a href="#" class="logo">KAREN.80S</a>
         <div class="nav-links">
             <a href="#about">About</a>
             <a href="#experience">Experience</a>
@@ -477,7 +476,8 @@
             <span id="musicText">HIDDEN 80s</span>
         </button>
     </div>
-    <audio id="bgAudio" loop>
+    
+    <audio id="bgAudio" loop preload="auto">
         <source src="hidden.mp3" type="audio/mpeg">
     </audio>
 
@@ -486,11 +486,11 @@
         <!-- Hero Section -->
         <header class="hero">
             <div style="margin-bottom: 1.5rem; display: inline-block; border: 3px solid var(--neon-blue); border-radius: 50%; padding: 5px; box-shadow: 0 0 25px var(--neon-blue);">
-                <img src="hero-retro.jpg" alt="Karan Bazeghi 80s" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; display: block;">
+                <img src="hero-retro.jpg" alt="Karen Bazeghi 80s" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; display: block;">
             </div>
             <br>
             <span class="badge">BUSINESS DEVELOPMENT MANAGER AT WALLGOLD</span>
-            <h1>KARAN BAZEGHI</h1>
+            <h1>KAREN BAZEGHI</h1>
             <h2>BEYOND A PERSON</h2>
             <p class="slogan">
                 "1980s Iranian kids learned to fight for everything. I love uncovering the new—not a master of one, but an explorer of many."
@@ -529,7 +529,7 @@
                     </div>
                 </div>
                 <div style="border: 2px solid var(--neon-blue); border-radius: 10px; overflow: hidden; box-shadow: 0 0 15px var(--neon-blue); flex-shrink: 0; max-width: 220px;">
-                    <img src="work-focus.jpg" alt="Karan Work" style="width: 100%; height: auto; display: block; filter: contrast(105%);">
+                    <img src="work-focus.jpg" alt="Karen Work" style="width: 100%; height: auto; display: block; filter: contrast(105%);">
                 </div>
             </div>
         </section>
@@ -602,7 +602,7 @@
                 <!-- Sports Card -->
                 <div class="card passion-card" style="text-align: center;">
                     <div style="border: 2px solid #fc4c02; border-radius: 10px; overflow: hidden; margin-bottom: 1rem; box-shadow: 0 0 12px rgba(252, 76, 2, 0.4);">
-                        <img src="running-medal.jpg" alt="Karan Running" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                        <img src="running-medal.jpg" alt="Karen Running" style="width: 100%; height: 200px; object-fit: cover; display: block;">
                     </div>
                     <div class="passion-icon"><i class="fa-solid fa-person-running"></i></div>
                     <h3>Sports & Padel</h3>
@@ -615,7 +615,7 @@
                     <div class="passion-card-bg" style="background-image: url('japan-city.jpg');"></div>
                     <div class="passion-card-content" style="text-align: center;">
                         <div style="border: 2px solid var(--neon-yellow); border-radius: 10px; overflow: hidden; margin-bottom: 1rem; box-shadow: 0 0 12px var(--neon-yellow);">
-                            <img src="vintage-bike.jpg" alt="Karan Bike Travel" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                            <img src="vintage-bike.jpg" alt="Karen Bike Travel" style="width: 100%; height: 200px; object-fit: cover; display: block;">
                         </div>
                         <div class="passion-icon"><i class="fa-solid fa-plane-departure"></i></div>
                         <h3>Wanderlust</h3>
@@ -638,10 +638,36 @@
 
     </div>
 
+    <!-- METIS CHATBOT WIDGET (SYNTHWAVE STYLE) -->
+    <div id="metisChatContainer" style="position: fixed; bottom: 85px; left: 20px; z-index: 9999; display: none; width: 340px; height: 450px; background: rgba(13, 2, 33, 0.95); border: 2px solid var(--neon-pink); border-radius: 15px; box-shadow: 0 0 25px var(--neon-pink); flex-direction: column; overflow: hidden; backdrop-filter: blur(10px);">
+        <!-- Chat Header -->
+        <div style="background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink)); padding: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--neon-blue);">
+            <span style="font-family: 'Press Start 2P', cursive; font-size: 0.65rem; color: #fff; text-shadow: 0 0 5px #fff;">KAREN AI ASSISTANT</span>
+            <button onclick="toggleMetisChat()" style="background: none; border: none; color: #fff; font-size: 1.1rem; cursor: pointer;">&times;</button>
+        </div>
+        <!-- Chat Body -->
+        <div id="metisMessages" style="flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
+            <div style="background: rgba(0, 243, 255, 0.15); border: 1px solid var(--neon-blue); padding: 8px 12px; border-radius: 8px; color: #fff; align-self: flex-start; max-width: 85%;">
+                سلام! من دستیار هوشمند کارن بازغی هستم. چه سوالی درباره سوابق، پروژه‌ها یا علایق کارن داری؟
+            </div>
+        </div>
+        <!-- Chat Input -->
+        <div style="padding: 10px; border-top: 1px solid rgba(255, 0, 127, 0.3); display: flex; gap: 8px; background: rgba(5, 0, 16, 0.8);">
+            <input type="text" id="metisInput" placeholder="پیام شما..." style="flex: 1; background: #0d0221; border: 1px solid var(--neon-blue); border-radius: 6px; padding: 8px; color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; outline: none;" onkeypress="if(event.key==='Enter') sendMetisMessage()">
+            <button onclick="sendMetisMessage()" style="background: var(--neon-pink); border: none; color: #fff; padding: 8px 12px; border-radius: 6px; cursor: pointer; box-shadow: 0 0 10px var(--neon-pink);"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Floating Toggle Button -->
+    <button id="metisChatToggleBtn" onclick="toggleMetisChat()" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: rgba(13, 2, 33, 0.95); border: 2px solid var(--neon-blue); color: #fff; padding: 12px 18px; border-radius: 50px; cursor: pointer; font-family: 'Press Start 2P', cursive; font-size: 0.65rem; box-shadow: 0 0 15px var(--neon-blue); display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-robot" style="color: var(--neon-pink);"></i>
+        <span>ASK KAREN AI</span>
+    </button>
+
     <!-- Footer & Socials -->
     <footer>
         <p style="font-family: 'Press Start 2P', cursive; font-size: 0.8rem; color: var(--neon-blue);">
-            KARAN BAZEGHI &copy; 80S RETRO LANDING PAGE
+            KAREN BAZEGHI &copy; 80S RETRO LANDING PAGE
         </p>
         <div class="social-links">
             <a href="https://github.com/karanbazeghi18" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
@@ -655,31 +681,6 @@
         const musicIcon = document.getElementById('musicIcon');
         const musicText = document.getElementById('musicText');
 
-        // Play audio on first user touch/click anywhere
-        function autoPlayAudio() {
-            audio.play().then(() => {
-                musicIcon.className = 'fa-solid fa-pause';
-                musicText.innerText = 'PAUSE';
-                document.getElementById('musicToggle').style.borderColor = 'var(--neon-blue)';
-                document.getElementById('musicToggle').style.boxShadow = '0 0 20px var(--neon-blue)';
-                window.removeEventListener('click', autoPlayAudio);
-                window.removeEventListener('touchstart', autoPlayAudio);
-            }).catch(e => console.log("Audio play blocked until click"));
-        }
-
-        window.addEventListener('click', autoPlayAudio);
-        window.addEventListener('touchstart', autoPlayAudio);
-
-        // Preloader Logic
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-            }, 2500);
-        });
-
-        // Toggle Audio Button
         function toggleAudio() {
             if (audio.paused) {
                 audio.play();
@@ -694,6 +695,71 @@
                 document.getElementById('musicToggle').style.borderColor = 'var(--neon-pink)';
                 document.getElementById('musicToggle').style.boxShadow = '0 0 15px var(--neon-pink)';
             }
+        }
+
+        // Auto-play on first click anywhere on screen
+        document.addEventListener('click', function startAudio() {
+            if (audio.paused) {
+                toggleAudio();
+            }
+            document.removeEventListener('click', startAudio);
+        }, { once: true });
+
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 2000);
+        });
+
+        // Metis Chatbot Logic
+        const METIS_TOKEN = "tpsg-kCJVaeOu5RKbg33h9v8lLbHCFJmUScZ";
+
+        function toggleMetisChat() {
+            const chat = document.getElementById('metisChatContainer');
+            chat.style.display = (chat.style.display === 'none' || chat.style.display === '') ? 'flex' : 'none';
+        }
+
+        async function sendMetisMessage() {
+            const input = document.getElementById('metisInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const msgContainer = document.getElementById('metisMessages');
+            
+            // User Message
+            msgContainer.innerHTML += `<div style="background: rgba(255, 0, 127, 0.2); border: 1px solid var(--neon-pink); padding: 8px 12px; border-radius: 8px; color: #fff; align-self: flex-end; max-width: 85%;">${text}</div>`;
+            input.value = '';
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+
+            // Loading
+            const loadingId = 'msg-' + Date.now();
+            msgContainer.innerHTML += `<div id="${loadingId}" style="background: rgba(0, 243, 255, 0.15); border: 1px solid var(--neon-blue); padding: 8px 12px; border-radius: 8px; color: var(--neon-yellow); align-self: flex-start; max-width: 85%;">در حال پاسخگویی...</div>`;
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+
+            try {
+                const response = await fetch('https://api.metisai.ir/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${METIS_TOKEN}`
+                    },
+                    body: JSON.stringify({
+                        messages: [{ role: "user", content: text }]
+                    })
+                });
+
+                const data = await response.json();
+                const reply = data?.choices?.[0]?.message?.content || data?.message || "متأسفانه پاسخی دریافت نشد.";
+                document.getElementById(loadingId).innerText = reply;
+                document.getElementById(loadingId).style.color = "#fff";
+            } catch (err) {
+                document.getElementById(loadingId).innerText = "خطا در برقراری ارتباط با متیس.";
+                document.getElementById(loadingId).style.color = "#ff4444";
+            }
+            msgContainer.scrollTop = msgContainer.scrollHeight;
         }
     </script>
 </body>
