@@ -638,32 +638,6 @@
 
     </div>
 
-    <!-- METIS CHATBOT WIDGET (SYNTHWAVE STYLE) -->
-    <div id="metisChatContainer" style="position: fixed; bottom: 85px; left: 20px; z-index: 9999; display: none; width: 340px; height: 450px; background: rgba(13, 2, 33, 0.95); border: 2px solid var(--neon-pink); border-radius: 15px; box-shadow: 0 0 25px var(--neon-pink); flex-direction: column; overflow: hidden; backdrop-filter: blur(10px);">
-        <!-- Chat Header -->
-        <div style="background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink)); padding: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--neon-blue);">
-            <span style="font-family: 'Press Start 2P', cursive; font-size: 0.65rem; color: #fff; text-shadow: 0 0 5px #fff;">KAREN AI ASSISTANT</span>
-            <button onclick="toggleMetisChat()" style="background: none; border: none; color: #fff; font-size: 1.1rem; cursor: pointer;">&times;</button>
-        </div>
-        <!-- Chat Body -->
-        <div id="metisMessages" style="flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
-            <div style="background: rgba(0, 243, 255, 0.15); border: 1px solid var(--neon-blue); padding: 8px 12px; border-radius: 8px; color: #fff; align-self: flex-start; max-width: 85%;">
-                سلام! من دستیار هوشمند کارن بازغی هستم. چه سوالی درباره سوابق، پروژه‌ها یا علایق کارن داری؟
-            </div>
-        </div>
-        <!-- Chat Input -->
-        <div style="padding: 10px; border-top: 1px solid rgba(255, 0, 127, 0.3); display: flex; gap: 8px; background: rgba(5, 0, 16, 0.8);">
-            <input type="text" id="metisInput" placeholder="پیام شما..." style="flex: 1; background: #0d0221; border: 1px solid var(--neon-blue); border-radius: 6px; padding: 8px; color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; outline: none;" onkeypress="if(event.key==='Enter') sendMetisMessage()">
-            <button onclick="sendMetisMessage()" style="background: var(--neon-pink); border: none; color: #fff; padding: 8px 12px; border-radius: 6px; cursor: pointer; box-shadow: 0 0 10px var(--neon-pink);"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <!-- Floating Toggle Button -->
-    <button id="metisChatToggleBtn" onclick="toggleMetisChat()" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: rgba(13, 2, 33, 0.95); border: 2px solid var(--neon-blue); color: #fff; padding: 12px 18px; border-radius: 50px; cursor: pointer; font-family: 'Press Start 2P', cursive; font-size: 0.65rem; box-shadow: 0 0 15px var(--neon-blue); display: flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-robot" style="color: var(--neon-pink);"></i>
-        <span>ASK KAREN AI</span>
-    </button>
-
     <!-- Footer & Socials -->
     <footer>
         <p style="font-family: 'Press Start 2P', cursive; font-size: 0.8rem; color: var(--neon-blue);">
@@ -674,6 +648,9 @@
             <a href="https://www.linkedin.com/in/karanbazeghi/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
         </div>
     </footer>
+
+    <!-- OFFICIAL METIS CHATBOT WIDGET -->
+    <script src="https://console.metisai.ir/chat-widget.js" data-bot-id="4e33b9ac-44c9-45cb-83bf-d3760cf91eed" default-open="false" async></script>
 
     <!-- Scripts -->
     <script>
@@ -713,54 +690,6 @@
                 preloader.style.visibility = 'hidden';
             }, 2000);
         });
-
-        // Metis Chatbot Logic
-        const METIS_TOKEN = "tpsg-kCJVaeOu5RKbg33h9v8lLbHCFJmUScZ";
-
-        function toggleMetisChat() {
-            const chat = document.getElementById('metisChatContainer');
-            chat.style.display = (chat.style.display === 'none' || chat.style.display === '') ? 'flex' : 'none';
-        }
-
-        async function sendMetisMessage() {
-            const input = document.getElementById('metisInput');
-            const text = input.value.trim();
-            if (!text) return;
-
-            const msgContainer = document.getElementById('metisMessages');
-            
-            // User Message
-            msgContainer.innerHTML += `<div style="background: rgba(255, 0, 127, 0.2); border: 1px solid var(--neon-pink); padding: 8px 12px; border-radius: 8px; color: #fff; align-self: flex-end; max-width: 85%;">${text}</div>`;
-            input.value = '';
-            msgContainer.scrollTop = msgContainer.scrollHeight;
-
-            // Loading
-            const loadingId = 'msg-' + Date.now();
-            msgContainer.innerHTML += `<div id="${loadingId}" style="background: rgba(0, 243, 255, 0.15); border: 1px solid var(--neon-blue); padding: 8px 12px; border-radius: 8px; color: var(--neon-yellow); align-self: flex-start; max-width: 85%;">در حال پاسخگویی...</div>`;
-            msgContainer.scrollTop = msgContainer.scrollHeight;
-
-            try {
-                const response = await fetch('https://api.metisai.ir/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${METIS_TOKEN}`
-                    },
-                    body: JSON.stringify({
-                        messages: [{ role: "user", content: text }]
-                    })
-                });
-
-                const data = await response.json();
-                const reply = data?.choices?.[0]?.message?.content || data?.message || "متأسفانه پاسخی دریافت نشد.";
-                document.getElementById(loadingId).innerText = reply;
-                document.getElementById(loadingId).style.color = "#fff";
-            } catch (err) {
-                document.getElementById(loadingId).innerText = "خطا در برقراری ارتباط با متیس.";
-                document.getElementById(loadingId).style.color = "#ff4444";
-            }
-            msgContainer.scrollTop = msgContainer.scrollHeight;
-        }
     </script>
 </body>
 </html>
