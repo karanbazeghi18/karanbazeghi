@@ -714,7 +714,7 @@
             }, 2000);
         });
 
-        // --- Custom Synthwave Chatbot Logic with Proxy ---
+        // --- Custom Synthwave Chatbot Logic with Free AllOrigins Proxy ---
         const BOT_ID = "4e33b9ac-44c9-45cb-83bf-d3760cf91eed";
 
         function toggleRetroChat() {
@@ -740,18 +740,19 @@
             container.scrollTop = container.scrollHeight;
 
             try {
-                // Using CorsProxy to bypass browser restriction
+                // AllOrigins Proxy URL
                 const targetUrl = `https://console.metisai.ir/api/v1/bots/${BOT_ID}/chat`;
-                const proxyUrl = `https://corsproxy.io/?` + encodeURIComponent(targetUrl);
+                const proxyUrl = `https://api.allorigins.win/get?url=` + encodeURIComponent(targetUrl + `?message=` + encodeURIComponent(text));
 
-                const res = await fetch(proxyUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: text })
-                });
-
+                const res = await fetch(proxyUrl);
                 const data = await res.json();
-                const reply = data.reply || data.response || data.message || "متأسفانه پاسخی دریافت نشد.";
+                
+                let reply = "متأسفانه پاسخی دریافت نشد.";
+                if (data.contents) {
+                    const parsed = JSON.parse(data.contents);
+                    reply = parsed.reply || parsed.response || parsed.message || reply;
+                }
+
                 document.getElementById(loadingId).innerText = reply;
                 document.getElementById(loadingId).style.color = "#fff";
             } catch (err) {
